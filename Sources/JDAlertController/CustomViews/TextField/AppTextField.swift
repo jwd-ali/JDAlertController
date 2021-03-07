@@ -189,14 +189,11 @@ private extension AppTextField {
             self.layer.borderColor = UIColor.systemGray6.cgColor
         } else {
             self.layer.borderColor = UIColor.lightGray.cgColor
-            // Fallback on earlier versions
         }
-
-       // addSubview(title)
+        
         addSubview(icon)
         addSubview(stateImage)
         addSubview(bottomBar)
-    //    addSubview(error)
     }
 
     func setupConstraints() {
