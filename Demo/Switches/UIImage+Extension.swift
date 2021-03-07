@@ -10,7 +10,7 @@ import UIKit
 public extension UIImage {
 
     func maskWithColor(color: UIColor) -> UIImage? {
-    
+
         let maskLayer = CALayer()
         maskLayer.bounds = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         maskLayer.backgroundColor = color.cgColor

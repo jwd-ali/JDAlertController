@@ -9,10 +9,9 @@
 import Foundation
 import UIKit
 
-
 // MARK: Inspectables
 public extension UIView {
-    
+
     @IBInspectable
     var cornerRadius: CGFloat {
         get {
@@ -32,7 +31,7 @@ public extension UIView {
 //            layer.borderWidth = newValue
 //        }
 //    }
-    
+
 //    @IBInspectable
 //    var borderColor: UIColor? {
 //        get {
@@ -49,7 +48,7 @@ public extension UIView {
 //            }
 //        }
 //    }
-    
+
     @IBInspectable
     var shadowRadius: CGFloat {
         get {
@@ -59,7 +58,7 @@ public extension UIView {
             layer.shadowRadius = newValue
         }
     }
-    
+
     @IBInspectable
     var shadowOpacity: Float {
         get {
@@ -69,7 +68,7 @@ public extension UIView {
             layer.shadowOpacity = newValue
         }
     }
-    
+
     @IBInspectable
     var shadowOffset: CGSize {
         get {
@@ -79,7 +78,7 @@ public extension UIView {
             layer.shadowOffset = newValue
         }
     }
-    
+
     @IBInspectable
     var shadowColor: UIColor? {
         get {
@@ -98,11 +97,10 @@ public extension UIView {
     }
 }
 
-
 // MARK: Redering
 
 public extension UIView {
-    
+
     /// Must be called after layouting
     func roundView() {
         layer.cornerRadius = bounds.width/2
@@ -112,8 +110,8 @@ public extension UIView {
 
 public extension UIView {
     @discardableResult
-    func takeScreenshot(rect:CGRect, shouldSave: Bool) -> UIImage? {
-        //creates new image context with same size as view
+    func takeScreenshot(rect: CGRect, shouldSave: Bool) -> UIImage? {
+        // creates new image context with same size as view
         // UIGraphicsBeginImageContextWithOptions (scale=0.0) for high res capture
         UIGraphicsBeginImageContextWithOptions(rect.size, true, 0.0)
 
@@ -125,34 +123,34 @@ public extension UIView {
 
         // clean up newly created context and return screenshot
         UIGraphicsEndImageContext()
-        
+
         if let image = screenshot, shouldSave {
             UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
         }
-        
+
         return screenshot
     }
 }
 public extension UIView {
-    
+
      func removeAllConstraints() {
-        var _superview = self.superview
-        
-        while let superview = _superview {
+        var isuperview = self.superview
+
+        while let superview = isuperview {
             for constraint in superview.constraints {
-                
+
                 if let first = constraint.firstItem as? UIView, first == self {
                     superview.removeConstraint(constraint)
                 }
-                
+
                 if let second = constraint.secondItem as? UIView, second == self {
                     superview.removeConstraint(constraint)
                 }
             }
-            
-            _superview = superview.superview
+
+            isuperview = superview.superview
         }
-        
+
         self.removeConstraints(self.constraints)
         self.translatesAutoresizingMaskIntoConstraints = true
     }

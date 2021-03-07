@@ -13,6 +13,11 @@ open  class BaseControl: UIControl {
 
     // MARK: - Property
      open var valueChange: SDSwitchValueChange?
-   
-     open var isOn: Bool = false
+
+    open var isOn: Bool = false {
+        didSet {
+            layoutIfNeeded()
+            layoutSublayers(of: self.layer)
+        }
+    }
 }

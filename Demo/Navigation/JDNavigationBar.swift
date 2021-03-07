@@ -23,62 +23,58 @@ public class JDNavigationBar: UINavigationBar {
             setNeedsDisplay()
         }
     }
-    
+
     public var shape: ShapeMode = .wave {
         didSet {
             setNeedsDisplay()
         }
     }
-    
+
     public var heightShape: CGFloat = 40 {
         didSet {
             self.heightShape = self.heightShape >= 0 ? self.heightShape : 0
         }
     }
-    
+
     private lazy var customHeight = self.bounds.height + self.heightShape
-    
+
     let shadowLayer = CAShapeLayer()
-    
+
     public override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         commonInit()
     }
-    
-    
+
     func commonInit() {
-        
+
         let shadow = NSShadow()
         shadow.shadowColor = UIColor.black
         shadow.shadowBlurRadius = 4
         shadow.shadowOffset = CGSize(width: 0, height: 3)
-        
+
         self.titleTextAttributes = [.foregroundColor: UIColor.white]
-        
+
         barStyle = .black
         isTranslucent = false
         tintColor = .white
         backgroundColor = .clear
         changeColor(color)
-        
 
     }
-    
-    
-    public func changeColor(_ color : UIColor){
+
+    public func changeColor(_ color: UIColor) {
         self.color = color
         shadowLayer.fillColor = self.color.cgColor
             self.statusBar.backgroundColor = self.color
     }
+
+     public func addStyle() {
     
-    override public func draw(_ rect: CGRect) {
-        super.draw(rect)
-        
         switch shape {
         case .folded:
             shadowLayer.path = self.drawFolded()
@@ -91,30 +87,37 @@ public class JDNavigationBar: UINavigationBar {
         }
         addBar()
         self.layer.shadowColor = UIColor.black.cgColor
-        self.layer.shadowOpacity = 0.23
+        self.layer.shadowOpacity = 0.3
         self.layer.shadowRadius = 10
         self.layer.shadowOffset = CGSize(width: 0, height: 10)
         self.layer.shouldRasterize = true
- 
+
+        layer.insertSublayer(shadowLayer, at: 0)
         
-        layer.insertSublayer(shadowLayer, below: self.topItem?.titleView?.layer)
+        if let vlayer = topItem?.titleView {
+        
+            layer.addSublayer(vlayer.layer)
+        
+        }
+        
     }
-    
+
     public func removeBar() {
         self.statusBar.removeFromSuperview()
     }
-    
+
     public func addBar() {
         if #available(iOS 13.0, *) {
-         
-            self.statusBar.frame = (UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.windowScene?.statusBarManager?.statusBarFrame) ?? CGRect.zero
+
+            self.statusBar.frame = (UIApplication.shared.windows.filter {$0.isKeyWindow}
+                                        .first?.windowScene?.statusBarManager?.statusBarFrame) ?? CGRect.zero
             self.statusBar.backgroundColor = self.color
             self.statusBar.tag = 999
             removeBar()
             UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.addSubview(self.statusBar)
-            
+
         } else {
-           
+
             if let getStatusBar = UIApplication.shared.value(forKey: "statusBar") as? UIView {
                 self.statusBar.frame = getStatusBar.frame
                 if self.statusBar.responds(to: #selector(setter: UIView.backgroundColor)) {
@@ -123,53 +126,53 @@ public class JDNavigationBar: UINavigationBar {
             }
         }
     }
-    
+
 }
 
-//MARK:- Paths
+// MARK: - Paths
 extension JDNavigationBar {
-    
+
     /*
      Add a Zigzag shape to the navigation bar
      */
-    func drawZigzag()-> CGPath {
-        
+    func drawZigzag() -> CGPath {
+
         let width = self.layer.frame.width
         let height = self.layer.frame.height
-        
+
         let bezierPath: UIBezierPath = UIBezierPath()
         bezierPath.move(to: CGPoint(x: 0, y: 0))
         bezierPath.addLine(to: CGPoint(x: 0, y: height))
-        
+
         let cycleSizeHalf: CGFloat = (width / CGFloat(self.cycles)) / 2
-        var x: CGFloat = 0
+        var x11: CGFloat = 0
         for _ in 1...(self.cycles * 2) {
-            x = x + cycleSizeHalf
-            bezierPath.addLine(to: CGPoint(x: x, y: height + CGFloat(self.heightShape)))
-            x = x + cycleSizeHalf
-            bezierPath.addLine(to: CGPoint(x: x, y: height))
+            x11 += cycleSizeHalf
+            bezierPath.addLine(to: CGPoint(x: x11, y: height + CGFloat(self.heightShape)))
+            x11 += cycleSizeHalf
+            bezierPath.addLine(to: CGPoint(x: x11, y: height))
         }
         bezierPath.addLine(to: CGPoint(x: width, y: 0))
         bezierPath.close()
         return bezierPath.cgPath
     }
-    
-    
-    
-    func drawFolded()-> CGPath {
+
+    func drawFolded() -> CGPath {
         let bezierPath: UIBezierPath = UIBezierPath()
         let frame = CGRect(x: 0, y: 0, width: bounds.maxX, height: bounds.maxY + heightShape/2)
-      
-        bezierPath.append(UIBezierPath(roundedRect: frame, byRoundingCorners: [.bottomLeft  ,.bottomRight], cornerRadii: CGSize(width: heightShape, height: heightShape)))
+
+        bezierPath.append(UIBezierPath(roundedRect: frame,
+                                       byRoundingCorners: [.bottomLeft, .bottomRight],
+                                       cornerRadii: CGSize(width: heightShape, height: heightShape)))
           heightShape /= 2
         return bezierPath.cgPath
     }
-    
+
     /*
      Add a Wave shape to the navigation bar
      */
-    
-    func drawWave()-> CGPath {
+
+    func drawWave() -> CGPath {
         let width = self.layer.frame.width
         let height = self.layer.frame.height
         let bezierPath: UIBezierPath = UIBezierPath()
@@ -177,32 +180,33 @@ extension JDNavigationBar {
         if self.cycles % 2 == 0 {
             self.cycles += 1
         }
-        
+
         bezierPath.move(to: CGPoint(x: 0, y: 0))
         bezierPath.addLine(to: CGPoint(x: 0, y: height))
-        
+
         let cycleSize = width / CGFloat(self.cycles)
-        var x: CGFloat = 0
+        var x11: CGFloat = 0
         let arcHeight = CGFloat(self.heightShape) / 2
-        let y: CGFloat = height + arcHeight
-        
-        for i in 0..<self.cycles {
-            if (i % 2) == 0 {
-                if (i + 1) == self.cycles {
-                    bezierPath.addQuadCurve(to: CGPoint(x: x + cycleSize, y: height), controlPoint: CGPoint(x: x + cycleSize / 2, y: y + arcHeight))
+        let y11: CGFloat = height + arcHeight
+
+        for i11 in 0..<self.cycles {
+            if (i11 % 2) == 0 {
+                if (i11 + 1) == self.cycles {
+                    bezierPath.addQuadCurve(to: CGPoint(x: x11 + cycleSize, y: height),
+                                            controlPoint: CGPoint(x: x11 + cycleSize / 2, y: y11 + arcHeight))
                 } else {
-                    bezierPath.addQuadCurve(to: CGPoint(x: x + cycleSize, y: y), controlPoint: CGPoint(x: x + cycleSize / 2, y: y + arcHeight))
+                    bezierPath.addQuadCurve(to: CGPoint(x: x11 + cycleSize, y: y11), controlPoint: CGPoint(x: x11 + cycleSize / 2, y: y11 + arcHeight))
                 }
             } else {
-                bezierPath.addQuadCurve(to: CGPoint(x: x + cycleSize, y: y), controlPoint: CGPoint(x: x + cycleSize / 2, y: y - arcHeight))
+                bezierPath.addQuadCurve(to: CGPoint(x: x11 + cycleSize, y: y11), controlPoint: CGPoint(x: x11 + cycleSize / 2, y: y11 - arcHeight))
             }
-            x += cycleSize
+            x11 += cycleSize
         }
         bezierPath.addLine(to: CGPoint(x: width, y: 0))
         bezierPath.close()
         return bezierPath.cgPath
     }
-    
+
     /*
      Add a Square shape to the navigation bar
      */
@@ -212,38 +216,36 @@ extension JDNavigationBar {
         let bezierPath: UIBezierPath = UIBezierPath()
         bezierPath.move(to: CGPoint(x: 0, y: 0))
         bezierPath.addLine(to: CGPoint(x: 0, y: height))
-        
+
         let cycleSize: CGFloat = width / CGFloat(self.cycles * 2)
         let xOffset = cycleSize / 2
-        var x = xOffset
-        
+        var x11 = xOffset
+
         bezierPath.addLine(to: CGPoint(x: xOffset, y: height))
-        
-        for i in 0..<self.cycles {
-            bezierPath.addLine(to: CGPoint(x: x, y: height + CGFloat(self.heightShape)))
-            x = x + cycleSize
-            bezierPath.addLine(to: CGPoint(x: x, y: height + CGFloat(self.heightShape)))
-            bezierPath.addLine(to: CGPoint(x: x, y: height))
-            
-            if (i + 1) != self.cycles {
-                x = x + cycleSize
-                bezierPath.addLine(to: CGPoint(x: x, y: height))
+
+        for i11 in 0..<self.cycles {
+            bezierPath.addLine(to: CGPoint(x: x11, y: height + CGFloat(self.heightShape)))
+            x11 += cycleSize
+            bezierPath.addLine(to: CGPoint(x: x11, y: height + CGFloat(self.heightShape)))
+            bezierPath.addLine(to: CGPoint(x: x11, y: height))
+
+            if (i11 + 1) != self.cycles {
+                x11 += cycleSize
+                bezierPath.addLine(to: CGPoint(x: x11, y: height))
             }
         }
-        x = x + xOffset
-        bezierPath.addLine(to: CGPoint(x: x, y: height))
+        x11 += xOffset
+        bezierPath.addLine(to: CGPoint(x: x11, y: height))
         bezierPath.addLine(to: CGPoint(x: width, y: 0))
         bezierPath.close()
         return bezierPath.cgPath
     }
 }
 
-
 public extension UIViewController {
-    
-    var jDNavigationController : JDNavigationController? {
+
+    var jDNavigationController: JDNavigationController? {
         get {
-         
              return navigationController as? JDNavigationController
         }
     }

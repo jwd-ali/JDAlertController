@@ -19,5 +19,4 @@ class BViewController: UIViewController {
         super.viewWillAppear(animated)
     }
 
-
 }

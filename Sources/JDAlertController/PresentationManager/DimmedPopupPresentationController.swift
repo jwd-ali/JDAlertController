@@ -28,9 +28,9 @@ public final class DimmedPopupPresentationController: UIPresentationController {
         frame.origin = .zero
         return frame
     }
-    
+
     override init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?) {
-        
+
          super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
          setupDimmingView()
     }
@@ -44,44 +44,44 @@ public final class DimmedPopupPresentationController: UIPresentationController {
             dimmingView.alpha = 1.0
             return
         }
-        
+
         coordinator.animate(alongsideTransition: { _ in
             self.dimmingView.alpha = 1.0
         })
     }
-    
+
     public override func dismissalTransitionWillBegin() {
         guard let coordinator = presentedViewController.transitionCoordinator else {
             dimmingView.alpha = 0.0
             return
         }
-        
+
         coordinator.animate(alongsideTransition: { _ in
             self.dimmingView.alpha = 0.0
         })
     }
-    
+
     public override func containerViewWillLayoutSubviews() {
         presentedView?.frame = frameOfPresentedViewInContainerView
     }
-    
+
     public override func size(forChildContentContainer container: UIContentContainer, withParentContainerSize parentSize: CGSize) -> CGSize {
         return presentedViewController.preferredContentSize
     }
-    
+
     public override func preferredContentSizeDidChange(forChildContentContainer container: UIContentContainer) {
           super.preferredContentSizeDidChange(forChildContentContainer: container)
-          
+
           guard let containerView = containerView else {
               return
           }
-          
+
           UIView.animate(withDuration: 1.0, animations: {
               containerView.setNeedsLayout()
               containerView.layoutIfNeeded()
           })
       }
-    
+
 }
 
 // MARK: - dimming view
@@ -89,22 +89,22 @@ private extension DimmedPopupPresentationController {
     func setupDimmingView() {
         dimmingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dimmingViewTapped(_:))))
     }
-    
+
     @objc func dimmingViewTapped(_ gestureRecognizer: UITapGestureRecognizer) {
-        //if vc conforms to DimmingViewTappedProtocol, it can receive tap events
-        if let vc = presentedViewController as? DimmingViewTappedProtocol {
-            vc.dimmingViewTapped()
+        // if vc conforms to DimmingViewTappedProtocol, it can receive tap events
+        if let vcontroller = presentedViewController as? DimmingViewTappedProtocol {
+            vcontroller.dimmingViewTapped()
         }
     }
-    
+
 }
 
-///conform to this protocol to receive dimming view tap events
+/// conform to this protocol to receive dimming view tap events
 public protocol DimmingViewTappedProtocol: class {
     func dimmingViewTapped()
 }
 extension DimmingViewTappedProtocol where Self: UIViewController {
-    func dimmingViewTapped(){
+    func dimmingViewTapped() {
         dismiss(animated: true, completion: nil)
     }
 }

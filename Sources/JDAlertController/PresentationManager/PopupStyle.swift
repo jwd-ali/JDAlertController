@@ -15,7 +15,7 @@ public enum PopupStyle {
 }
 
 extension PopupStyle {
-    
+
     var animationControllerPresent: UIViewControllerAnimatedTransitioning {
         switch self {
         case .alert:
@@ -28,7 +28,7 @@ extension PopupStyle {
             return DragingPresentationAnimator(isPresentation: true)
         }
     }
-    
+
     var animationControllerDismiss: UIViewControllerAnimatedTransitioning {
         switch self {
         case .alert:
@@ -41,7 +41,7 @@ extension PopupStyle {
             return DragingPresentationAnimator(isPresentation: false)
         }
     }
-    
+
 }
 
 public struct Slide {

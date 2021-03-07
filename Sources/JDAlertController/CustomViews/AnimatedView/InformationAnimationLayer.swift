@@ -8,28 +8,27 @@
 
 import UIKit
 public class InformationAnimationLayer: CAShapeLayer, AnimateLogo {
-    
-    
+
     public override var strokeColor: CGColor? {
         didSet {
             crossLayerA.strokeColor = strokeColor
             crossLayerB.strokeColor = strokeColor
         }
     }
-    
+
     public override var lineWidth: CGFloat {
         didSet {
             crossLayerA.lineWidth = lineWidth
             crossLayerB.lineWidth = lineWidth
         }
     }
-    
+
     public override func removeAllAnimations() {
         super.removeAllAnimations()
         crossLayerA.removeAllAnimations()
         crossLayerB.removeAllAnimations()
     }
-    
+
     private lazy var crossLayerA: CAShapeLayer = {
         let view = CAShapeLayer()
         view.fillColor = UIColor.white.cgColor
@@ -39,7 +38,7 @@ public class InformationAnimationLayer: CAShapeLayer, AnimateLogo {
         view.lineCap = .round
         return view
     }()
-    
+
     private lazy var crossLayerB: CAShapeLayer = {
         let view = CAShapeLayer()
         view.fillColor = UIColor.white.cgColor
@@ -49,58 +48,58 @@ public class InformationAnimationLayer: CAShapeLayer, AnimateLogo {
         view.lineCap = .round
         return view
     }()
-    
-    public var logoLayer: CAShapeLayer   {
+
+    public var logoLayer: CAShapeLayer {
         return self
     }
-    
+
     public override var frame: CGRect {
-        didSet{
+        didSet {
             commonInit()
         }
     }
-    
+
     public override init() {
         super.init()
         commonInit()
     }
-    
+
     override init(layer: Any) {
         super.init(layer: layer)
         commonInit()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         commonInit()
     }
-    
+
     public override func layoutSublayers() {
         super.layoutSublayers()
         commonInit()
     }
-    
+
     private func commonInit() {
-        
+
         fillColor = UIColor.clear.cgColor
         backgroundColor = UIColor.clear.cgColor
         lineCap = .round
-        
+
         addSublayer(crossLayerA)
-        //addSublayer(crossLayerB)
-        
+        // addSublayer(crossLayerB)
+
         let viewCenter = CGPoint(x: bounds.midX-5, y: bounds.midY-5)
         crossLayerA.frame = CGRect(origin: viewCenter, size: CGSize(width: 10, height: 10))
       //  crossLayerB.frame = .zero
-        
+
        // crossLayerB.path = linePath()
         crossLayerA.path = linePath(layerBounds: crossLayerA.frame)
     }
-    
-    private func linePath(layerBounds: CGRect)-> CGPath {
-        
+
+    private func linePath(layerBounds: CGRect) -> CGPath {
+
         let radius = layerBounds.size.height/18
-        
+
        let verticalControlOffset = radius
             let horizontalControllOffset = radius / 2
             let height = radius * 5
@@ -132,18 +131,15 @@ public class InformationAnimationLayer: CAShapeLayer, AnimateLogo {
 
             return path.cgPath
         }
-    
-    
+
 }
 public extension InformationAnimationLayer {
-    func animateLayer(duration: Double, delay: Double, completion: animationCompletion) {
+    func animateLayer(duration: Double, delay: Double, completion: AnimationCompletion) {
 //        let path = UIBezierPath()
 //        let minimumRadius = bounds.midX - bounds.maxX/6
 //        let maximumRadius = bounds.midX + bounds.maxX/6
-        
-        crossLayerA.boundsAnimationFrames(bounds: [crossLayerA.bounds,bounds], times: [0,1], duration: 4, delay: 0)
-        
-        
+
+        crossLayerA.boundsAnimationFrames(bounds: [crossLayerA.bounds, bounds], times: [0, 1], duration: 4, delay: 0)
 
     }
 }

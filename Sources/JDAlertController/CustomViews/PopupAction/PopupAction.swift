@@ -8,11 +8,10 @@
 
 import UIKit
 
-public typealias action = ()-> Void
-
+public typealias Action = () -> Void
 
 extension PopupAction {
-    
+
     public enum ButtonWidth {
         case full
         case margin
@@ -20,7 +19,6 @@ extension PopupAction {
         case custom(ratio: CGFloat)
     }
 
-   
         var buttonSize: CGFloat {
             switch propotionalWidth {
             case .full:
@@ -33,10 +31,9 @@ extension PopupAction {
                 return width
             }
         }
-    
-    
+
     public enum Style {
-        
+
         case `default`
         case bold
         case destructive
@@ -44,10 +41,10 @@ extension PopupAction {
         case classic(cornerRadius: CGFloat)
         case justText
     }
-    
+
     private func applyStyle() {
         switch style {
-            
+
         case .default:
             print("default 000")
         case .bold:
@@ -74,23 +71,23 @@ extension PopupAction {
 }
 
 open class PopupAction: UIButton {
-    //MARK:- Views
+    // MARK: - Views
     private lazy var borderView: UIView = {
         let view = UIView()
         view.backgroundColor = .border
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
-    //MARK:- Properties
-    private var action: action?
+
+    // MARK: - Properties
+    private var action: Action?
     private var titleText: String?
-    private(set) var style:Style
-    private(set) var propotionalWidth:ButtonWidth
-    
+    private(set) var style: Style
+    private(set) var propotionalWidth: ButtonWidth
+
     open override func setTitleColor(_ color: UIColor?, for state: UIControl.State) {
         super.setTitleColor(color, for: state)
-        
+
         layer.borderColor = color?.cgColor
     }
     open override func willMove(toSuperview newSuperview: UIView?) {
@@ -98,24 +95,24 @@ open class PopupAction: UIButton {
             .alignEdgesWithSuperview([.left, .right, .top])
             .height(constant: 1.5)
     }
-    //MARK:- Initializer
-    public init(title: String,style:Style = .default, propotionalWidth: ButtonWidth = .full, handler: action?) {
+    // MARK: - Initializer
+    public init(title: String, style: Style = .default, propotionalWidth: ButtonWidth = .full, handler: Action? = nil) {
         self.style = style
         self.propotionalWidth = propotionalWidth
         super.init(frame: .zero)
-       
+
         self.action = handler
         self.titleText = title
         translatesAutoresizingMaskIntoConstraints = false
         setupView()
         setupConstraints()
     }
-    
+
     required public init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    //MARK: Shadow
+
+    // MARK: Shadow
     func addShadow() {
         layer.shadowColor = UIColor.textDark.cgColor
         layer.shadowOffset = .zero
@@ -124,35 +121,33 @@ open class PopupAction: UIButton {
         layer.masksToBounds = false
         backgroundColor = self.backgroundColor == .clear ? .white : backgroundColor
     }
-    
+
     open override func layoutSubviews() {
         super.layoutSubviews()
         applyStyle()
     }
 }
 
-//MARK:- Setup & bind
+// MARK: - Setup & bind
 private extension PopupAction {
     func setupView() {
         self.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-        
+
         setTitleColor(.primary, for: .normal)
         setTitle(titleText, for: .normal)
         addSubview(borderView)
-        
+
         applyStyle()
     }
-    
+
     @objc func buttonTapped() {
         if let action =  action {
             action()
         }
     }
-    
+
     func setupConstraints() {
-        
+
     }
-    
-    
-    
+
 }

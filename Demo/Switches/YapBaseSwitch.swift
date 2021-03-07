@@ -6,7 +6,7 @@
 //  Copyright © 2020 Jawad Ali. All rights reserved.
 //
 
-//// `Design by`: Oleg Frolov
+// `Design by`: Oleg Frolov
 // https://dribbble.com/shots/2028065-Switcher-lll
 
 import UIKit
@@ -15,11 +15,10 @@ import UIKit
 open class YapBaseSwitch: BaseControl {
 
     // MARK: - Property
-   
-    @IBInspectable open var animateDuration: Double = 0.4
-  
 
-    internal var on: Bool = false
+    @IBInspectable open var animateDuration: Double = 0.4
+
+//    internal var ison: Bool = false
     internal var sizeScale: CGFloat {
         return min(self.bounds.width, self.bounds.height)/100.0
     }
@@ -40,8 +39,8 @@ open class YapBaseSwitch: BaseControl {
 
     // MARK: - Getter
 
-    final public func setOn(_ on: Bool, animate: Bool = true) {
-        guard on != isOn else { return }
+    final public func setOn(_ isOn: Bool, animate: Bool = true) {
+        guard isOn != isOn else { return }
         toggleValue()
     }
 
@@ -78,14 +77,14 @@ open class YapBaseSwitch: BaseControl {
     }
 
     @objc internal func toggleValue() {
-         
-        self.on.toggle()
+
+        self.isOn.toggle()
         self.isOn.toggle()
        valueChange?(isOn)
         sendActions(for: .valueChanged)
         changeValueAnimate(isOn, duration: animateDuration)
     }
-    
+
     internal func changeValueAnimate(_ value: Bool, duration: Double) {
     }
 

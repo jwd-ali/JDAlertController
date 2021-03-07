@@ -20,7 +20,7 @@ extension PopupType {
             return #colorLiteral(red: 0.9998564124, green: 0.4897186756, blue: 0.5090405345, alpha: 1)
         }
     }
-    
+
     var animationLayer: AnimateLogo {
         switch self {
         case .success:

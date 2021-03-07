@@ -9,8 +9,13 @@
 import UIKit
 
 public class UIStackViewFactory {
-    public class func createStackView(with axis: NSLayoutConstraint.Axis, alignment: UIStackView.Alignment = .leading, distribution: UIStackView.Distribution = .fillProportionally, spacing: CGFloat = 0, arrangedSubviews: [UIView]? = nil) -> UIStackView {
-        let stackView = arrangedSubviews == nil ? UIStackView() : UIStackView(arrangedSubviews: arrangedSubviews!)
+    public class func createStackView(with axis: NSLayoutConstraint.Axis,
+                                      alignment: UIStackView.Alignment = .leading,
+                                      distribution: UIStackView.Distribution = .fillProportionally,
+                                      spacing: CGFloat = 0,
+                                      arrangedSubviews: [UIView]? = nil) -> UIStackView {
+        let arrangedSubviews = arrangedSubviews ?? []
+        let stackView = UIStackView(arrangedSubviews: arrangedSubviews)
         stackView.axis = axis
         stackView.alignment = alignment
         stackView.distribution = distribution
@@ -19,4 +24,3 @@ public class UIStackViewFactory {
         return stackView
     }
 }
-

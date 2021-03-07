@@ -48,7 +48,7 @@ final class DragingPresentationAnimator: NSObject, UIViewControllerAnimatedTrans
             controller.view.center = CGPoint( x: areaCenter.x, y: areaCenter.y*0.2 )
             
           //  DispatchQueue.main.asyncAfter(deadline: .now() + 0.21) {
-            UIView.animate(withDuration:animationDuration/3){
+            UIView.animate(withDuration:animationDuration){
                  controller.view.alpha = 1
             }
                 
@@ -73,8 +73,8 @@ final class DragingPresentationAnimator: NSObject, UIViewControllerAnimatedTrans
             UIView.animate(
                 withDuration: animationDuration/2,
                 delay: 0,
-//                usingSpringWithDamping: 1,
-//                initialSpringVelocity: 1,
+                usingSpringWithDamping: 1,
+                initialSpringVelocity: 1,
                
                 animations: {
                     self.gravityBehaviour = UIGravityBehavior(items: [controller.view])

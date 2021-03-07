@@ -8,12 +8,11 @@
 
 import UIKit
 public extension CALayer {
-    
+
     var areAnimationsEnabled: Bool {
             get { delegate == nil }
             set { delegate = newValue ? nil : CALayerAnimationsDisablingDelegate.shared }
         }
-    
 
     private class CALayerAnimationsDisablingDelegate: NSObject, CALayerDelegate {
         static let shared = CALayerAnimationsDisablingDelegate()
@@ -23,7 +22,7 @@ public extension CALayer {
             null
         }
      }
-    
+
        func bringToFront() {
           guard let sLayer = superlayer else {
              return
@@ -39,21 +38,20 @@ public extension CALayer {
           removeFromSuperlayer()
           sLayer.insertSublayer(self, at: 0)
        }
-    
-    
-      func animateGradientColors(from: [CGColor], to : [CGColor], duration: Double) {
+
+      func animateGradientColors(from: [CGColor], toColor: [CGColor], duration: Double) {
           let animation = CABasicAnimation(keyPath: "colors")
           animation.fromValue = from
-          animation.toValue = to
+          animation.toValue = toColor
           animation.duration = duration
           animation.fillMode = .forwards
           animation.isRemovedOnCompletion = false
 
           // add the animation to the gradient
           self.add(animation, forKey: nil)
-          
+
       }
-    
+
     func strokeAnimation(duration: Double) {
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         animation.fromValue = 0
@@ -63,9 +61,9 @@ public extension CALayer {
         animation.isRemovedOnCompletion = false
         self.add(animation, forKey: "line")
     }
-    
-    func rotateAnimation(angal: CGFloat, duration: Double , repeatAnimation:Bool = false) {
-        
+
+    func rotateAnimation(angal: CGFloat, duration: Double, repeatAnimation: Bool = false) {
+
         let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
         rotationAnimation.fromValue = 0
         rotationAnimation.toValue = angal
@@ -76,24 +74,24 @@ public extension CALayer {
         rotationAnimation.repeatCount = repeatAnimation ? .infinity : 0
         self.add(rotationAnimation, forKey: "rotation")
     }
-    
+
     func removeRotationAnimation() {
         self.removeAnimation(forKey: "rotation")
     }
-    
-    func animateShape(path: CGPath , duration: Double)  {
-        
+
+    func animateShape(path: CGPath, duration: Double) {
+
         let animation = CABasicAnimation(keyPath: "path")
         animation.duration = duration
         animation.toValue = path
         animation.timingFunction = CAMediaTimingFunction(name: .linear)
         animation.isRemovedOnCompletion = false
         animation.fillMode = .forwards
-        
+
         self.add(animation, forKey: nil)
-        
+
     }
-    
+
     func doMask(by imageMask: UIImage) {
         let maskLayer = CAShapeLayer()
         maskLayer.bounds = CGRect(x: 0, y: 0, width: imageMask.size.width, height: imageMask.size.height)
@@ -102,7 +100,7 @@ public extension CALayer {
         maskLayer.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height)
         mask = maskLayer
     }
-    
+
     func toImage() -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(bounds.size,
                                                isOpaque,
@@ -116,8 +114,7 @@ public extension CALayer {
         UIGraphicsEndImageContext()
         return image
     }
-    
-    
+
 }
 extension BinaryInteger {
     var degreesToRadians: CGFloat { CGFloat(self) * .pi / 180 }

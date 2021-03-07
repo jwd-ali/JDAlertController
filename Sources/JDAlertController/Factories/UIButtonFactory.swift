@@ -8,7 +8,7 @@
 
 import UIKit
 public class UIButtonFactory {
-    
+
     public class func createButton(title: String = String(), backgroundColor: UIColor = .clear, textColor: UIColor =  .textDark) -> UIButton {
         let button = UIButton()
         button.setTitle(title, for: .normal)
@@ -18,4 +18,3 @@ public class UIButtonFactory {
         return button
     }
 }
-

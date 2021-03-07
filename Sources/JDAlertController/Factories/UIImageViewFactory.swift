@@ -8,16 +8,17 @@
 
 import UIKit
 public class UIImageViewFactory {
-    
-    public class func createBackgroundImageView(mode: UIImageView.ContentMode = .scaleAspectFill, image: UIImage) -> UIImageView {
+    public class func createBackgroundImageView(mode: UIImageView.ContentMode = .scaleAspectFill,
+                                                image: UIImage) -> UIImageView {
         let imageView = UIImageView()
         imageView.contentMode = mode
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = image
         return imageView
     }
-    
-    public class func createImageView(mode: UIImageView.ContentMode = .scaleAspectFill, image: UIImage? = nil, tintColor: UIColor? = .clear) -> UIImageView {
+    public class func createImageView(mode: UIImageView.ContentMode = .scaleAspectFill,
+                                      image: UIImage? = nil,
+                                      tintColor: UIColor? = .clear) -> UIImageView {
         let imageView = UIImageView()
         imageView.contentMode = mode
         imageView.tintColor = tintColor

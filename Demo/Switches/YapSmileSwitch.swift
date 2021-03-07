@@ -20,9 +20,14 @@ open class YapSmileSwitch: YapBaseSwitch {
     override internal func setUpView() {
         super.setUpView()
         backgroundColor = .clear
-        let frame = CGRect(x: self.bounds.width - self.bounds.height, y: 0, width: self.bounds.height, height: self.bounds.height)
-        smileFace = TKSmileFaceView(frame: frame)
-        addSubview(smileFace!)
+        let frame = CGRect(x: self.bounds.width - self.bounds.height,
+                           y: 0,
+                           width: self.bounds.height,
+                           height: self.bounds.height)
+         let smileFace = TKSmileFaceView(frame: frame)
+        
+            addSubview(smileFace)
+        
 
     }
 
@@ -37,16 +42,17 @@ open class YapSmileSwitch: YapBaseSwitch {
     }
 
     override func changeValueAnimate(_ value: Bool, duration: Double) {
-        let x = value ? 0 : (bounds.width - bounds.height)
-        let frame = CGRect(x: x, y: 0, width: bounds.height, height: bounds.height)
-        self.smileFace!.faceType = value ? TKSmileFaceView.FaceType.happy : TKSmileFaceView.FaceType.sad
+        let xValue = value ? 0 : (bounds.width - bounds.height)
+        let frame = CGRect(x: xValue, y: 0, width: bounds.height, height: bounds.height)
+        self.smileFace!.faceType = value ? TKSmileFaceView.FaceType.happy :
+            TKSmileFaceView.FaceType.sad
         self.smileFace?.rotation(animateDuration, count: 2, clockwise: !isOn)
         UIView.animate(withDuration: duration, animations: { () -> Void in
             self.smileFace?.frame = frame
-            }, completion: { (complete) -> Void in
-                if complete {
-                    self.smileFace?.eyeWinkAnimate(duration/2)
-                }
+        }, completion: { (complete) -> Void in
+            if complete {
+                self.smileFace?.eyeWinkAnimate(duration/2)
+            }
         })
 
     }
@@ -97,7 +103,9 @@ private class TKSmileFaceView: UIView {
             let point: CGFloat = isHappy ? 70 * sizeScale : 10
             let path = UIBezierPath()
             path.move(to: CGPoint(x: 30 * sizeScale, y: 40 * sizeScale))
-            path.addCurve(to: CGPoint(x: 70 * sizeScale, y: 40 * sizeScale), controlPoint1: CGPoint(x: 30 * sizeScale, y: 40 * sizeScale), controlPoint2: CGPoint(x: 50 * sizeScale, y: point))
+            path.addCurve(to: CGPoint(x: 70 * sizeScale, y: 40 * sizeScale),
+                          controlPoint1: CGPoint(x: 30 * sizeScale, y: 40 * sizeScale),
+                          controlPoint2: CGPoint(x: 50 * sizeScale, y: point))
             path.lineCapStyle = .round
             return path
         }
@@ -152,7 +160,7 @@ private class TKSmileFaceView: UIView {
         eyeleftTransformAnim.values   = [NSValue(caTransform3D: CATransform3DIdentity),
                                          NSValue(caTransform3D: CATransform3DMakeScale(1, 0.1, 1)),
                                          NSValue(caTransform3D: CATransform3DIdentity)
-                                        ]
+        ]
         eyeleftTransformAnim.keyTimes = [0, 0.5, 1]
         eyeleftTransformAnim.duration = duration
         leftEye.add(eyeleftTransformAnim, forKey: "Wink")

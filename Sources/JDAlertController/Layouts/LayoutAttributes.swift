@@ -33,7 +33,7 @@ public enum  LayoutEdge {
 }
 
 extension  LayoutEdge {
-    var axis:  LayoutAxis {
+    var axis: LayoutAxis {
         switch self {
         case .left, .right, .centerX, .safeAreaLeft, .safeAreaRight:
             return .horizontal
@@ -41,11 +41,11 @@ extension  LayoutEdge {
             return .vertical
         case .height, .width:
             return .dimensions
-            
+
         }
     }
-    
-    var safeAreaEdge:  LayoutEdge {
+
+    var safeAreaEdge: LayoutEdge {
         switch self {
         case .left, .safeAreaLeft:
             return .safeAreaLeft
@@ -68,7 +68,7 @@ public enum  LayoutConstantModifier {
 }
 
 internal extension UIView {
-    func horizontalAnchor(_ edge:  LayoutEdge) -> NSLayoutXAxisAnchor {
+    func horizontalAnchor(_ edge: LayoutEdge) -> NSLayoutXAxisAnchor {
         switch edge {
         case .left:
             return leadingAnchor
@@ -84,8 +84,8 @@ internal extension UIView {
             return leadingAnchor
         }
     }
-    
-    func verticalAnchor(_ edge:  LayoutEdge) -> NSLayoutYAxisAnchor {
+
+    func verticalAnchor(_ edge: LayoutEdge) -> NSLayoutYAxisAnchor {
         switch edge {
         case .top:
             return topAnchor
@@ -101,8 +101,8 @@ internal extension UIView {
             return topAnchor
         }
     }
-    
-    func dimensionAnchor(_ edge:  LayoutEdge) -> NSLayoutDimension {
+
+    func dimensionAnchor(_ edge: LayoutEdge) -> NSLayoutDimension {
         switch edge {
         case .width:
             return widthAnchor
