@@ -185,7 +185,12 @@ private extension AppTextField {
     func setupViews() {
         self.layer.cornerRadius = 10
         self.layer.borderWidth = 1.5
-        self.layer.borderColor = UIColor.systemGray6.cgColor
+        if #available(iOS 13.0, *) {
+            self.layer.borderColor = UIColor.systemGray6.cgColor
+        } else {
+            self.layer.borderColor = UIColor.lightGray.cgColor
+            // Fallback on earlier versions
+        }
 
        // addSubview(title)
         addSubview(icon)
