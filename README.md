@@ -43,3 +43,57 @@ Then, run the following command:
 ```bash
 $ pod install
 ```
+### [Carthage](http://github.com/Carthage/Carthage)
+
+To integrate `JDAlertController` into your Xcode project using Carthage, specify it in your `Cartfile`:
+
+```ogdl
+github "jwd-ali/JDAlertController"
+```
+
+### [Swift Package Manager (SPM)](https://swift.org/package-manager)
+
+#### Prerequisites
+- OSX
+
+
+#### Update `Package.swift`
+To integrate `JDAlertController` in your project, add the proper description to your `Package.swift` file:
+```swift
+// swift-tools-version:5.0
+import PackageDescription
+
+let package = Package(
+    name: "YOUR_PROJECT_NAME",
+    dependencies: [
+        .package(url: "https://github.com/jwd-ali/JDAlertController.git")
+    ],
+    targets: [
+        .target(
+            name: "YOUR_TARGET_NAME",
+            dependencies: ["JDAlertController"]
+        ),
+        ...
+    ]
+)
+```
+
+### Manually
+
+If you prefer not to use a dependency manager, you can integrate JDAlertController into your project manually.
+
+- Add sources into your project:
+  - Drag `Sources`
+
+
+
+
+## Contributing
+
+I’d love to have help on this project. For small changes please [open a pull request](https://github.com/jwd-ali/JDAlertController/pulls), for larger changes please [open an issue](https://github.com/jwd-ali/JDAlertController/issues) first to discuss what you’d like to see.
+
+
+License
+-------
+
+JDAlertController is under [MIT](https://opensource.org/licenses/MIT). See [LICENSE](LICENSE) file for more info.
