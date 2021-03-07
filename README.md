@@ -23,7 +23,7 @@ Error and Success Animations are build using CABasicAnimation and CAShapeLayer t
 </br></br>
 ## Requirements
 
-- iOS 10.0+ / Mac OS X 10.9+ / watchOS 2.0+ / tvOS 9.0+
+- iOS 11.0+ / Mac OS X 10.9+ / watchOS 2.0+ / tvOS 9.0+
 - Xcode 8.0+
 
 ## Installation
