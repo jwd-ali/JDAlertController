@@ -21,3 +21,25 @@ Error and Success Animations are build using CABasicAnimation and CAShapeLayer t
 <a href="https://www.linkedin.com/in/jawad-ali-3804ab24/"><img src="https://i.imgur.com/vGjsQPt.png" width="134" height="34"></a>  
 
 </br></br>
+## Requirements
+
+- iOS 10.0+ / Mac OS X 10.9+ / watchOS 2.0+ / tvOS 9.0+
+- Xcode 8.0+
+
+## Installation
+
+### [CocoaPods](http://cocoapods.org)
+
+To integrate **JDAlertController** into your Xcode project using CocoaPods, specify it in your `Podfile`:
+
+```ruby
+use_frameworks!
+
+pod 'JDAlertController'
+```
+
+Then, run the following command:
+
+```bash
+$ pod install
+```
