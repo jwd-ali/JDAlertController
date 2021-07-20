@@ -27,8 +27,8 @@
         <!--Navigation Controller-->
         <scene sceneID="oL6-mG-quV">
             <objects>
-                <navigationController storyboardIdentifier="HOME_ID" id="2sK-u1-Buc" customClass="JDNavigationController" customModule="Demo" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="rqv-gF-qFH" customClass="JDNavigationBar" customModule="Demo" customModuleProvider="target">
+                <navigationController storyboardIdentifier="HOME_ID" id="2sK-u1-Buc" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="rqv-gF-qFH">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -788,8 +788,8 @@
         <!--Navigation Controller-->
         <scene sceneID="b2J-8T-g73">
             <objects>
-                <navigationController storyboardIdentifier="CHAT_ID" id="J6b-ng-aCF" customClass="JDNavigationController" customModule="Demo" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5kU-yS-V7R" customClass="JDNavigationBar" customModule="Demo" customModuleProvider="target">
+                <navigationController storyboardIdentifier="CHAT_ID" id="J6b-ng-aCF" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5kU-yS-V7R">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1152,7 +1152,7 @@
         <!--Navigation Controller-->
         <scene sceneID="J6W-gO-3gB">
             <objects>
-                <navigationController storyboardIdentifier="SLEEP_ID" id="cpq-XF-c1Z" customClass="JDNavigationController" customModule="Demo" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="SLEEP_ID" id="cpq-XF-c1Z" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="aR5-5s-JiQ" customClass="JDNavigationBar" customModule="Demo" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1161,7 +1161,7 @@
                         <segue destination="RRk-U5-sd7" kind="relationship" relationship="rootViewController" id="ZSu-0H-cav"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5wg-4v-j78" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5wg-4v-j78" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="434" y="911"/>
         </scene>
@@ -1263,8 +1263,8 @@
         <!--Navigation Controller-->
         <scene sceneID="oLf-Sx-7Fp">
             <objects>
-                <navigationController storyboardIdentifier="MUSIC_ID" id="HPU-8g-r3y" customClass="JDNavigationController" customModule="Demo" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="55K-mA-5Nr" customClass="JDNavigationBar" customModule="Demo" customModuleProvider="target">
+                <navigationController storyboardIdentifier="MUSIC_ID" id="HPU-8g-r3y" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="55K-mA-5Nr">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

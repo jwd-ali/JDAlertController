@@ -20,8 +20,6 @@ class SearchViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
            super.viewWillAppear(animated)
 
-           jDNavigationController?.jDnavigationBar?.changeColor(#colorLiteral(red: 0.7254902124, green: 0.4784313738, blue: 0.09803921729, alpha: 1))
-
        }
 
     @IBAction private func changeTintColor(_ sender: UIButton) {
